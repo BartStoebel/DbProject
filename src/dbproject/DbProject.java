@@ -7,7 +7,10 @@ package dbproject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 /**
  *
@@ -23,19 +26,41 @@ Password: admin
 Windows Service Name: MySQL57
 
      */
-    private static final String URL = "jdbc:mysql://localhost/bieren?"
+    private static final String URL = "jdbc:mysql://localhost/tuincentrum?"
             + "useSSL=false";            //dataverkeer encrypteren?
-    private static final String USER = "root";
+    private static final String USER = "cursist";
     private static final String PASSWORD = "admin";
+    private static final String UPDATE_PRIJS = "update planten set "
+            + "verkoopprijs = verkoopprijs * 1";
+    private static final String SELECT_NAAM = "select id, naam from leveranciers"
+            + " order by id";
+    private static final String SELECT_GEMIDDELDE_VERKOOPPRIJS = "select "
+            + "avg(verkoopprijs) as gemiddelde from planten";
+    private static final String SELECT_ALLE_LEVERANCIERS =
+            "select naam, aantalkinderen from leveranciers order by naam";
+    private static final String SELECT_LEVERANCIERS_VAN_EEN_WOONPLAATS =
+            "select naam from leveranciers where woonplaats = ?";
+    private static final String UPDATE_PLANTEN_PRIJS_HACKER = "update planten "
+            + "set verkoopprijs = verkoopprijs * 1.1 where naam = ?";
     
     
     public static void main(String[] args) {
-        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)){
-            System.out.println("Connectie geopend!");
-            
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Plant:");
+        String woonplaats = scanner.nextLine();
+        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement statement = connection.prepareStatement(UPDATE_PLANTEN_PRIJS_HACKER)){
+            statement.setString(1, woonplaats);
+            statement.executeUpdate();
+        
         } catch (SQLException e){
             e.printStackTrace();
         }
+        
+        
+//        TestMain main = new TestMain();
+//        main.main();
+
     }
     
 }

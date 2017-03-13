@@ -5,6 +5,10 @@
  */
 package dbproject;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author Vinnie
@@ -12,10 +16,26 @@ package dbproject;
 public class DbProject {
 
     /**
-     * @param args the command line arguments
+     * MySQLServer setup thuis:
+Connection name: VinniesConnection
+Username : root
+Password: admin
+Windows Service Name: MySQL57
+
      */
+    private static final String URL = "jdbc:mysql://localhost/bieren?"
+            + "useSSL=false";            //dataverkeer encrypteren?
+    private static final String USER = "root";
+    private static final String PASSWORD = "admin";
+    
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)){
+            System.out.println("Connectie geopend!");
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     
 }

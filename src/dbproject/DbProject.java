@@ -45,22 +45,29 @@ Windows Service Name: MySQL57
     
     
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Plant:");
-        String woonplaats = scanner.nextLine();
-        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                PreparedStatement statement = connection.prepareStatement(UPDATE_PLANTEN_PRIJS_HACKER)){
-            statement.setString(1, woonplaats);
-            statement.executeUpdate();
-        
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("minimum:");
+//        double min = Double.parseDouble(scanner.nextLine());
+//        System.out.println("Maximum: ");
+//        double max = Double.parseDouble(scanner.nextLine());
+
+//        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+//                PreparedStatement statement = connection.prepareStatement(UPDATE_PLANTEN_PRIJS_HACKER)){
+//            statement.setString(1, woonplaats);
+//            statement.executeUpdate();
+//        
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        }
         
         
 //        TestMain main = new TestMain();
 //        main.main();
+//        SchoolTestDb school = new SchoolTestDb();
+//        school.main(0.5, 3.2);
 
+        SchoolTestTuincentrum testTuin = new SchoolTestTuincentrum();
+        testTuin.test();
     }
     
 }

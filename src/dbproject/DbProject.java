@@ -5,12 +5,11 @@
  */
 package dbproject;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 /**
  *
@@ -27,7 +26,7 @@ Windows Service Name: MySQL57
 
      */
     private static final String URL = "jdbc:mysql://localhost/tuincentrum?"
-            + "useSSL=false";            //dataverkeer encrypteren?
+            + "useSSL=false&noAccessToProcedureBodies=true";            //dataverkeer encrypteren?
     private static final String USER = "cursist";
     private static final String PASSWORD = "admin";
     private static final String UPDATE_PRIJS = "update planten set "
@@ -42,6 +41,7 @@ Windows Service Name: MySQL57
             "select naam from leveranciers where woonplaats = ?";
     private static final String UPDATE_PLANTEN_PRIJS_HACKER = "update planten "
             + "set verkoopprijs = verkoopprijs * 1.1 where naam = ?";
+    private static final String SP = "{call test(?)}";
     
     
     public static void main(String[] args) {
@@ -51,14 +51,18 @@ Windows Service Name: MySQL57
 //        System.out.println("Maximum: ");
 //        double max = Double.parseDouble(scanner.nextLine());
 
-//        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-//                PreparedStatement statement = connection.prepareStatement(UPDATE_PLANTEN_PRIJS_HACKER)){
-//            statement.setString(1, woonplaats);
-//            statement.executeUpdate();
-//        
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
+        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                CallableStatement statement = connection.prepareCall(SP)){
+            statement.setString(1, "%bloem");
+            try (ResultSet resultSet = statement.executeQuery()){
+                while(resultSet.next()){
+                    System.out.println(resultSet.getString("naam"));
+                }
+            }
+        
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
         
         
 //        TestMain main = new TestMain();
@@ -66,8 +70,8 @@ Windows Service Name: MySQL57
 //        SchoolTestDb school = new SchoolTestDb();
 //        school.main(0.5, 3.2);
 
-        SchoolTestTuincentrum testTuin = new SchoolTestTuincentrum();
-        testTuin.test();
+//        SchoolTestTuincentrum testTuin = new SchoolTestTuincentrum();
+//        testTuin.test();
     }
     
 }

@@ -41,7 +41,7 @@ Windows Service Name: MySQL57
             "select naam from leveranciers where woonplaats = ?";
     private static final String UPDATE_PLANTEN_PRIJS_HACKER = "update planten "
             + "set verkoopprijs = verkoopprijs * 1.1 where naam = ?";
-    private static final String SP = "{call test(?)}";
+    private static final String SP = "{call testpar(?)}";
     
     
     public static void main(String[] args) {
@@ -51,24 +51,24 @@ Windows Service Name: MySQL57
 //        System.out.println("Maximum: ");
 //        double max = Double.parseDouble(scanner.nextLine());
 
-//        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-//                CallableStatement statement = connection.prepareCall(SP)){
-//            statement.setString(1, "%bloem");
-//            try (ResultSet resultSet = statement.executeQuery()){
-//                while(resultSet.next()){
-//                    System.out.println(resultSet.getString("naam"));
-//                }
-//            }
-//        
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
+        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                CallableStatement statement = connection.prepareCall(SP)){
+            statement.setString(1, "%bloem");
+            try (ResultSet resultSet = statement.executeQuery()){
+                while(resultSet.next()){
+                    System.out.println(resultSet.getString("naam"));
+                }
+            }
+        
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
         
         
 //        TestMain main = new TestMain();
 //        main.main();
-        SchoolTestDb school = new SchoolTestDb();
-        school.main(0.5, 3.2);
+//        SchoolTestDb school = new SchoolTestDb();
+//        school.main(0.5, 3.2);
 
 //        SchoolTestTuincentrum testTuin = new SchoolTestTuincentrum();
 //        testTuin.test();

@@ -5,7 +5,6 @@
  */
 package dbproject;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,8 +18,8 @@ import java.sql.Statement;
  */
 public class SchoolTestDb {
     private final String URL = "jdbc:mysql://localhost/bieren?"
-            + "useSSL=false&noAccessToProcedureBodies=true";
-    private final String USER = "cursist";
+            + "useSSL=false";
+    private final String USER = "root";
     private final String PASSWORD = "admin";
     private final String SQL = "select * from bieren where alcohol is null";
     private final String AANTAL_BIEREN_PER_BROUWER = "select brouwers.brnaam, count(bieren.brouwernr) as aantal " +
@@ -31,24 +30,18 @@ public class SchoolTestDb {
             + "from bieren "
             + "where alcohol > ? and alcohol < ? "
             + "order by alcohol, naam";
-    private final String SP_BIER = "{call bierMinMax(?,?)}";
-    private final String UPDATE2 = "update bieren set brouwernr = 2 "
-            + "where brouwernr = 1 and alcohol > 8.5";
-    private final String UPDATE3 = "update bieren set brouwernr = 3 "
-            + "where brouwernr = 1 and alcohol <= 8.5";
-    private final String DELETE = "delete from brouwers where brouwernr = 1";
-    
     
     
     public void main(double min, double max) {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 Statement statement = connection.createStatement()){
-            connection.setAutoCommit(false);
-            statement.executeUpdate(UPDATE2);
-            statement.executeUpdate(UPDATE3);
-            statement.execute(DELETE);
-            connection.commit();
-            
+            try(ResultSet resultSet = statement.executeQuery(SQL)){
+                ResultSetMetaData metadata = resultSet.getMetaData();
+                for (int index = 1; index <=metadata.getColumnCount() ;index++){
+                    System.out.printf("%s:  %s%n",metadata.getColumnName(index), 
+                    metadata.getColumnTypeName(index));
+                }
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }

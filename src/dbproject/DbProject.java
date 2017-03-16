@@ -51,22 +51,22 @@ Windows Service Name: MySQL57
 //        System.out.println("Maximum: ");
 //        double max = Double.parseDouble(scanner.nextLine());
 
-        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                CallableStatement statement = connection.prepareCall(SP)){
-            statement.setString(1, "%bloem");
-            try (ResultSet resultSet = statement.executeQuery()){
-                while(resultSet.next()){
-                    System.out.println(resultSet.getString("naam"));
-                }
-            }
+//        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+//                CallableStatement statement = connection.prepareCall(SP)){
+//            statement.setString(1, "%bloem");
+//            try (ResultSet resultSet = statement.executeQuery()){
+//                while(resultSet.next()){
+//                    System.out.println(resultSet.getString("naam"));
+//                }
+//            }
+//        
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        }
         
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
         
-        
-//        TestMain main = new TestMain();
-//        main.main();
+        TestMain main = new TestMain();
+        main.main();
 //        SchoolTestDb school = new SchoolTestDb();
 //        school.main(0.5, 3.2);
 

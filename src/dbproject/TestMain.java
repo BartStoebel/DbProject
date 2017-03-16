@@ -7,9 +7,9 @@ package dbproject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -27,15 +27,22 @@ public class TestMain {
         "left join bieren on brouwers.id = bieren.brouwerid " +
         "group by brouwers.naam order by brouwers.naam";
     
+    private final String BIEREN_MAAND = "Select verkochtsinds, naam " + 
+            "from bieren where {fn month(verkochtsinds)} = ?"
+            + " order by verkochtsinds";
+    
     
     public void main() {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(AANTAL_BIEREN_PER_BROUWER)){
-            while (resultSet.next()){
-                System.out.printf("%s  %d%n",resultSet.getString("naam"), resultSet.getInt("aantal"));
-            }
-            
+                PreparedStatement statement = connection.prepareStatement(BIEREN_MAAND)){
+                    statement.setInt(1, 10);
+                    try(ResultSet resultSet = statement.executeQuery()){
+                        int a = 1;
+                        while (resultSet.next()){
+                            
+                            System.out.printf("%d: %s  %s%n",a++,resultSet.getDate("verkochtsinds"), resultSet.getString("naam"));
+                        }
+                    }
         }catch (SQLException e){
             e.printStackTrace();
         }

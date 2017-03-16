@@ -10,6 +10,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  *
@@ -33,14 +36,21 @@ public class TestMain {
     
     
     public void main() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("y-M-d");
+        Locale aLocale = Locale.FRANCE;
+        DateTimeFormatter form = DateTimeFormatter.ofPattern("d-MMMM-yyyy", aLocale);
+        
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 PreparedStatement statement = connection.prepareStatement(BIEREN_MAAND)){
-                    statement.setInt(1, 10);
+                    statement.setInt(1, 1);
                     try(ResultSet resultSet = statement.executeQuery()){
                         int a = 1;
                         while (resultSet.next()){
+                            LocalDate date = LocalDate.parse(resultSet.getDate("verkochtsinds").toString(),formatter);
                             
-                            System.out.printf("%d: %s  %s%n",a++,resultSet.getDate("verkochtsinds"), resultSet.getString("naam"));
+                            
+                            String d = date.format(form);
+                            System.out.printf("%d: %s   %s%n",a++, d, resultSet.getString("naam"));
                         }
                     }
         }catch (SQLException e){

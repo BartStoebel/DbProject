@@ -5,11 +5,7 @@
  */
 package dbproject;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import Test.TestJDBC;
 
 /**
  *
@@ -45,6 +41,9 @@ Windows Service Name: MySQL57
     
     
     public static void main(String[] args) {
+        TestJDBC test = new TestJDBC();
+        test.UI();
+        
 //        Scanner scanner = new Scanner(System.in);
 //        System.out.println("minimum:");
 //        double min = Double.parseDouble(scanner.nextLine());
@@ -65,8 +64,8 @@ Windows Service Name: MySQL57
 //        }
         
         
-        TestMain main = new TestMain();
-        main.main();
+//        TestMain main = new TestMain();
+//        main.main();
 //        SchoolTestDb school = new SchoolTestDb();
 //        school.main(0.5, 3.2);
 

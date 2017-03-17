@@ -5,8 +5,7 @@
  */
 package dbproject;
 
-import Test.UI;
-import connectiontovoorraadbeheer.voorraadbeheerConnection;
+import bank.BankController;
 
 /**
  *
@@ -41,23 +40,24 @@ Windows Service Name: MySQL57
     private static final String SP = "{call testpar(?)}";
     
     
+    
+    
     public static void main(String[] args) {
-        UI userInterface = new UI();
-        voorraadbeheerConnection vbcon = new voorraadbeheerConnection();
-        boolean herhaal = true;
-        while (herhaal){
-            while (!userInterface.user_input()){
-            }
-            vbcon.updateVoorraden(userInterface);
-            
-            
-            
-            
-            
-            
-            
-            herhaal = userInterface.herhaal();
-        }
+       BankController bc = new BankController();
+       bc.menu();
+   
+        
+        
+        
+//        UI userInterface = new UI();
+//        voorraadbeheerConnection vbcon = new voorraadbeheerConnection();
+//        boolean herhaal = true;
+//        while (herhaal){
+//            while (!userInterface.userMenu()){
+//            }
+//            vbcon.updateVoorraden(userInterface);
+//            herhaal = userInterface.herhaal();
+//        }
         
         
         

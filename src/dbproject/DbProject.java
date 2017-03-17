@@ -5,7 +5,8 @@
  */
 package dbproject;
 
-import Test.TestJDBC;
+import Test.UI;
+import connectiontovoorraadbeheer.voorraadbeheerConnection;
 
 /**
  *
@@ -41,8 +42,25 @@ Windows Service Name: MySQL57
     
     
     public static void main(String[] args) {
-        TestJDBC test = new TestJDBC();
-        test.UI();
+        UI userInterface = new UI();
+        voorraadbeheerConnection vbcon = new voorraadbeheerConnection();
+        boolean herhaal = true;
+        while (herhaal){
+            while (!userInterface.user_input()){
+            }
+            vbcon.updateVoorraden(userInterface);
+            
+            
+            
+            
+            
+            
+            
+            herhaal = userInterface.herhaal();
+        }
+        
+        
+        
         
 //        Scanner scanner = new Scanner(System.in);
 //        System.out.println("minimum:");

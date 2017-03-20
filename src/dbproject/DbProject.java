@@ -49,15 +49,15 @@ Windows Service Name: MySQL57
         
         
         
-//        UI userInterface = new UI();
-//        voorraadbeheerConnection vbcon = new voorraadbeheerConnection();
-//        boolean herhaal = true;
-//        while (herhaal){
-//            while (!userInterface.userMenu()){
-//            }
-//            vbcon.updateVoorraden(userInterface);
-//            herhaal = userInterface.herhaal();
-//        }
+        UI userInterface = new UI();
+        voorraadbeheerConnection vbcon = new voorraadbeheerConnection();
+        boolean herhaal = true;
+        while (herhaal){
+            while (!userInterface.userMenu()){
+            }
+            vbcon.updateVoorraden(userInterface);
+            herhaal = userInterface.herhaal();
+        }
         
         
         
